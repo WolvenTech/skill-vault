@@ -1,0 +1,38 @@
+version: "1"
+domains:
+  - id: engineering
+    title: Engineering
+    subgroups:
+      - id: compozy
+        title: Compozy Workflows
+        description: Compozy pipeline and task automation skills
+      - id: development
+        title: Development
+      - id: qa
+        title: Quality Assurance
+
+  - id: marketing
+    title: Marketing
+    subgroups:
+      - id: content
+        title: Content
+      - id: campaigns
+        title: Campaigns
+      - id: analytics
+        title: Analytics
+
+  - id: product
+    title: Product
+    subgroups:
+      - id: discovery
+        title: Discovery
+      - id: planning
+        title: Planning
+
+  - id: ops
+    title: Operations
+    subgroups:
+      - id: workflows
+        title: Workflows
+      - id: tooling
+        title: Tooling
