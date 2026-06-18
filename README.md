@@ -34,4 +34,4 @@ The catalog is organized into four top-level domains. Each domain has an index p
 - **Templates** — [`catalog/templates/skill/SKILL.md`](catalog/templates/skill/SKILL.md) and [`catalog/templates/agent/AGENT.md`](catalog/templates/agent/AGENT.md) for authoring.
 - **Metadata** — [`docs/metadata-contract.md`](docs/metadata-contract.md) documents OKF-light frontmatter for catalog entries.
 
-Contribution guide and placement rules are documented separately (see `CONTRIBUTING.md` when published).
+Contribution guide and placement rules: [`CONTRIBUTING.md`](CONTRIBUTING.md).
