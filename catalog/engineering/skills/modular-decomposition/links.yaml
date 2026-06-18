@@ -1,0 +1,7 @@
+relations:
+  - type: complements
+    target: ../domain-analysis/SKILL.md
+    note: Strategic domain discovery
+  - type: complements
+    target: ../coupling-analysis/SKILL.md
+    note: Coupling metrics after decomposition

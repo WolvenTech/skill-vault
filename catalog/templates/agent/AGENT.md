@@ -5,6 +5,8 @@ description: One-line summary for index listings and search snippets.
 tags:
   - compozy
   - workflow
+related_skills:
+  - ../skills/example-skill/SKILL.md
 ---
 
 # Role

@@ -121,6 +121,75 @@ Examples:
 
 Subgroup is **not** reflected in the path. Use `tags` and the domain index page to associate entries with subgroups.
 
+## Pairing metadata (ADR-006)
+
+Primary skill–agent pairings use OKF-light front matter extensions. Optional `links.yaml` sidecars hold richer typed relationship graphs.
+
+### Front matter extensions
+
+| Field | Applies to | Type | Purpose |
+|-------|------------|------|---------|
+| `related_skills` | Agents (required when paired); Skills (optional) | list of strings | Skill `name` values or relative paths to `SKILL.md` |
+| `related_agents` | Skills (optional); Agents (optional) | list of strings | Agent directory names or relative paths to `AGENT.md` |
+
+**Rules:**
+
+- Use **relative markdown paths** when linking across type boundaries: `../skills/wolven-voice/SKILL.md`
+- Agents with paired skills **should** include `related_skills` listing those skills
+- Skills **may** include `related_agents` for reverse navigation
+- Keep front matter to primary pairs; defer richer graphs to `links.yaml`
+
+**Agent example with pairing:**
+
+```yaml
+---
+type: Agent
+title: LinkedIn Writer
+description: Worker persona that drafts LinkedIn posts using brand voice and format skills.
+tags:
+  - content
+  - campaigns
+related_skills:
+  - ../skills/wolven-voice/SKILL.md
+  - ../skills/linkedin-format/SKILL.md
+---
+```
+
+**Skill example with reverse pairing:**
+
+```yaml
+---
+name: wolven-voice
+type: Skill
+title: Wolven Brand Voice
+description: Brand voice constraints for public Wolven content.
+tags:
+  - content
+related_agents:
+  - ../agents/linkedin-writer/AGENT.md
+---
+```
+
+### Optional links.yaml sidecar
+
+Place `links.yaml` in the entry directory alongside `SKILL.md` or `AGENT.md` when relationships exceed simple pairing lists.
+
+```yaml
+relations:
+  - type: uses
+    target: ../skills/wolven-voice/SKILL.md
+    note: Brand voice constraints
+  - type: uses
+    target: ../skills/linkedin-format/SKILL.md
+    note: Post structure and hooks
+```
+
+**Rules:**
+
+- `links.yaml` is **optional** — use when `related_*` front matter is insufficient
+- All `target` values use relative paths to catalog entries (or `null` for documented deferrals)
+- Do not duplicate every `related_*` entry — front matter holds primary pairs; `links.yaml` holds typed edges and notes
+
 ## Cross-link convention
 
 Related catalog skills and agents should link to each other using **relative markdown links** from the referencing file's location.

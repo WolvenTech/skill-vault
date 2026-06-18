@@ -1,0 +1,10 @@
+relations:
+  - type: uses
+    target: ../../skills/wolven-voice/SKILL.md
+    note: Brand voice constraints
+  - type: uses
+    target: ../../skills/linkedin-format/SKILL.md
+    note: Post structure and hooks
+  - type: defers
+    target: null
+    note: verifier workflow deferred per PRD M3

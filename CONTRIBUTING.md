@@ -72,7 +72,7 @@ If no subgroup fits, open a separate PR to extend [`catalog/taxonomy.yaml`](cata
 
 ### Updating navigation
 
-When catalog entries exist (session 2+), add links to the skill or agent in the appropriate subgroup section of `catalog/<domain>/index.md`. Keep index subgroup headings aligned with [`catalog/taxonomy.yaml`](catalog/taxonomy.yaml).
+When catalog entries exist (session 2+), append a row to the flat **Skills** or **Agents** table in `catalog/<domain>/index.md` (ADR-004). Each row includes Title (linked), Description, and Subgroup column derived from entry `tags`. Do not use per-subgroup section headings for entry listings.
 
 ## PR review checklist
 
@@ -101,7 +101,20 @@ V1 has no automated metadata validator (ADR-007). Reviewers enforce standards ma
 ### Navigation and taxonomy sync
 
 - [ ] Domain `index.md` updated when adding or removing entries (session 2+)
-- [ ] Subgroup sections in the index still match [`catalog/taxonomy.yaml`](catalog/taxonomy.yaml)
+- [ ] Flat index table row added with Title, Description, and Subgroup column matching entry `tags` (ADR-004)
+- [ ] Subgroup column uses comma-separated subgroup ids when entry has multiple subgroup tags
+
+### Session 2 pairing metadata (ADR-006)
+
+- [ ] Paired agents include `related_skills` listing relative paths to paired `SKILL.md` files
+- [ ] Skills with paired agents include `related_agents` when reverse navigation is intended
+- [ ] Optional `links.yaml` sidecar uses relative paths and valid `relations` schema when present
+- [ ] Primary pairings live in front matter; `links.yaml` holds richer typed edges only when needed
+
+### Session 2 import hygiene (ADR-005, ADR-003)
+
+- [ ] Partial-pick imports contain only roster-listed files — no full upstream folder copy
+- [ ] Skill/agent bodies remain market-default — no vault-specific navigation embeds in bodies
 
 ### Security (when applicable)
 
@@ -191,10 +204,23 @@ Session 2 is the pre-launch curation pass that populates the empty catalog shell
 3. **Normalize metadata** — Apply OKF-light frontmatter per [`docs/metadata-contract.md`](docs/metadata-contract.md); include the subgroup id in `tags`. Start from [`catalog/templates/skill/SKILL.md`](catalog/templates/skill/SKILL.md) or [`catalog/templates/agent/AGENT.md`](catalog/templates/agent/AGENT.md).
 4. **Place files** — Copy into `catalog/<domain>/skills/<name>/` or `catalog/<domain>/agents/<name>/` per [Taxonomy placement rules](#taxonomy-placement-rules).
 5. **Security review** — Run Snyk Code/SCA on bundled scripts and manifests when present; follow [manual fallback](#manual-security-review-fallback) if MCP is unavailable.
-6. **Update navigation** — Add entries to the correct subgroup section in `catalog/<domain>/index.md`; add [cross-links](#cross-link-convention) to related catalog entries.
+6. **Update navigation** — Append a flat index table row in `catalog/<domain>/index.md` with Subgroup column (ADR-004); add pairing via front matter `related_*` and optional `links.yaml` (ADR-006).
 7. **Open PR** — Request review using the [PR review checklist](#pr-review-checklist). Iterate until metadata, placement, links, and security expectations pass.
 
-**Go-live gate (session 2):** Depth-first — at least 15–20 curated skills total, concentrated in engineering and marketing; product and ops may remain thin. Public launch waits until this curation completes.
+**Go-live gate (session 2):** Coverage-driven launch acceptance — verify metrics M1–M8 before removing README pre-launch status:
+
+| Metric | Criterion |
+|--------|-----------|
+| M1 | ≥2 of 3 engineering subgroups (`compozy`, `development`, `qa`) populated in entry `tags` |
+| M2 | ≥2 of 3 marketing subgroups (`content`, `campaigns`, `analytics`) populated |
+| M3 | MVP slots imported or documented deferral (`verificacao`/`verifier` deferred) |
+| M4 | 100% code-bearing imports Snyk-clean (0 unremediated critical/high) |
+| M5 | 100% OKF-light metadata compliance via extended checklist |
+| M6 | Reviewer link-graph assessment for paired entries |
+| M7 | Obsidian smoke test — wiki-links resolve at repo root |
+| M8 | ≥80% of catalog entries in engineering + marketing domains |
+
+Product and ops domains may remain thin. Public launch waits until M1–M8 pass.
 
 ## Authoring templates
 

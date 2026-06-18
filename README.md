@@ -4,9 +4,11 @@ Wolven's organized, browsable library of AI agent **skills** and **advisor perso
 
 Catalog skills and agents live under [`catalog/`](catalog/). They are the **product** of this repository: governed, taxonomy-placed, and intended for adoption in agent runtimes (Cursor, Claude, Codex, and others).
 
+You can open this repository as an **Obsidian vault** at the repo root for graph view and wiki-link navigation across catalog entries.
+
 ## Pre-launch status
 
-**This catalog is scaffolding only.** Domain folders, taxonomy, and navigation exist, but **no catalog skills or agents are published yet**. Marketplace curation in **session 2** will import and place content before go-live. Until then, domain indexes show structure and empty skill/agent sections — not a finished library.
+**Session 2 curation complete.** Engineering and marketing domains are populated with curated skills and agents. Browse by domain below or open this repository as an Obsidian vault at the repo root for graph navigation.
 
 ## Catalog vs dev-time tooling
 
